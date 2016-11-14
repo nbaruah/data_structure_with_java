@@ -8,9 +8,9 @@ import java.util.Stack;
  * On initialization it performs a DFS from the source vertex and computes various path related questions.
  * Created by nbaruah on 11/13/2016.
  */
-public class Paths {
+public class DFSPaths {
     private boolean[] visited; // vertex indexed array to mark when a vertex is visited
-    private int[] reachedFrom; // vertex indexed array to track back from which vertex we reached a particular vertex for the first time
+    private int[] visitedFrom; // vertex indexed array to track back from which vertex we reached a particular vertex for the first time
     private int source; // Stores the source vertex
     private int sizeOfG; // Stores the number of vertices in the graph to be processed
 
@@ -19,12 +19,12 @@ public class Paths {
      * @param G the Graph
      * @param source vertex
      */
-    public Paths(Graph G, int source){
+    public DFSPaths(Graph G, int source){
         sizeOfG = G.V();
         validateVertex(source);
         this.source = source;
         visited = new boolean[G.V()];
-        reachedFrom = new int[G.V()];
+        visitedFrom = new int[G.V()];
         dfs(G, source);
     }
 
@@ -52,7 +52,7 @@ public class Paths {
         int currentVertex = v;
         while (currentVertex != this.source){
             path.push(currentVertex);
-            currentVertex = reachedFrom[currentVertex];
+            currentVertex = visitedFrom[currentVertex];
         }
         path.push(this.source);
         return path;
@@ -68,7 +68,7 @@ public class Paths {
         for (int adjV : G.getAdjVertices(source)){
             if (!visited[adjV]){
                 dfs(G, adjV);
-                reachedFrom[adjV] = source;
+                visitedFrom[adjV] = source;
             }
         }
     }
@@ -86,12 +86,12 @@ public class Paths {
         G.addEdge(1, 3);
         G.addEdge(3, 4);
 
-        Paths pathsFrom_0 = new Paths(G, 0);
-        for (int v : pathsFrom_0.pathTo(2)){
+        DFSPaths DFSPathsFrom_0 = new DFSPaths(G, 0);
+        for (int v : DFSPathsFrom_0.pathTo(2)){
             System.out.print(" => " +v);
         }
         System.out.println();
 
-        System.out.println(pathsFrom_0.hasPathTo(2));
+        System.out.println(DFSPathsFrom_0.hasPathTo(2));
     }
 }
