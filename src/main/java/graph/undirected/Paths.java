@@ -28,11 +28,22 @@ public class Paths {
         dfs(G, source);
     }
 
+    /**
+     * Is there a path between source vertex and vertex v?
+     * @param v vertex
+     * @return true if exist
+     * @throws ArrayIndexOutOfBoundsException if v is not a valid vertex
+     */
     public boolean hasPathTo(int v){
         validateVertex(v);
         return visited[v];
     }
 
+    /**
+     * Returns a path between vertex v and source or null if no such path
+     * @param v the vertex
+     * @return A path to source vertex and null if there is no path to source
+     */
     public Iterable<Integer> pathTo(int v){
         if (!hasPathTo(v)){
             return null;
@@ -47,6 +58,11 @@ public class Paths {
         return path;
     }
 
+    /**
+     * Performs a DFS from source, to visit each vertex that has a path with source (undirected graph)
+     * @param G
+     * @param source
+     */
     private void dfs(Graph G, int source){
         visited[source] = true;
         for (int adjV : G.getAdjVertices(source)){
@@ -72,9 +88,10 @@ public class Paths {
 
         Paths pathsFrom_0 = new Paths(G, 0);
         for (int v : pathsFrom_0.pathTo(2)){
-            System.out.print("=> " +v);
+            System.out.print(" => " +v);
         }
+        System.out.println();
 
-        pathsFrom_0.hasPathTo(7);
+        System.out.println(pathsFrom_0.hasPathTo(2));
     }
 }
