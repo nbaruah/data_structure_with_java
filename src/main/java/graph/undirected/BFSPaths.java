@@ -6,21 +6,21 @@ import common.Queue;
  * Created by nbaruah on 11/14/2016.
  */
 public class BFSPaths {
+    private static final int INFINITY = Integer.MAX_VALUE;
     private boolean[] visited; // visited[v] = Is vertex v is visited from source
-    private int[] visitedFrom; // visitedFrom[v] = last vertex in the path from source to vertex v
-    private int[] distFromSrcTo; // distFromSrcTo[v] = path length from source to vertex v
+    private int[] visitedFrom; // visitedFrom[v] = last vertex in the path to vertex v
+    private int[] distFromSrcTo; // distFromSrcTo[v] = length of the path from source to vertex v
 
     public BFSPaths(Graph G, int source){
         visited = new boolean[G.V()];
         visitedFrom = new int[G.V()];
         distFromSrcTo = new int[G.V()];
-
     }
 
     private void bfs(Graph G, int source){
         Queue<Integer> nodesQ = new Queue<Integer>();
         for (int i = 0; i < G.V(); i++) {
-            distFromSrcTo[i] = -1;
+            distFromSrcTo[i] = INFINITY;
         }
         visited[source] = true;
         distFromSrcTo[source] = 0;
