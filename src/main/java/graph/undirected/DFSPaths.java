@@ -8,14 +8,14 @@ import java.util.Stack;
  * On initialization it performs a DFS from the source vertex and computes various path related questions.
  * Created by nbaruah on 11/13/2016.
  */
-public class DFSPaths {
+public class DFSPaths implements Paths{
     private boolean[] visited; // vertex indexed array to mark when a vertex is visited
     private int[] visitedFrom; // vertex indexed array to track back from which vertex we reached a particular vertex for the first time
     private int source; // Stores the source vertex
     private int sizeOfG; // Stores the number of vertices in the graph to be processed
 
     /**
-     * Find paths in G from source
+     * Find paths in G from source vertex
      * @param G the Graph
      * @param source vertex
      */
