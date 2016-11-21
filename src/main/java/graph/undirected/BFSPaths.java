@@ -1,6 +1,7 @@
 package graph.undirected;
 
 import common.Queue;
+import graph.common.Graph;
 
 import java.util.Stack;
 

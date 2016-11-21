@@ -1,4 +1,4 @@
-package graph.undirected;
+package graph.common;
 
 /**
  * Created by nbaruah on 11/12/2016.

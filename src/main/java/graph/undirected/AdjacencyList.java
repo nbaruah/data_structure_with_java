@@ -1,5 +1,7 @@
 package graph.undirected;
 
+import graph.common.Graph;
+
 import java.util.LinkedList;
 
 /**

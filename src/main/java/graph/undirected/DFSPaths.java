@@ -1,5 +1,7 @@
 package graph.undirected;
 
+import graph.common.Graph;
+
 import java.util.Stack;
 
 /**
@@ -10,9 +12,9 @@ import java.util.Stack;
  */
 public class DFSPaths implements Paths{
     private boolean[] visited; // vertex indexed array to mark when a vertex is visited
-    private int[] visitedFrom; // vertex indexed array to track back from which vertex we reached a particular vertex for the first time
-    private int source; // Stores the source vertex
-    private int sizeOfG; // Stores the number of vertices in the graph to be processed
+    private int[] edgeTo; // vertex indexed array to track back from which vertex we reached a particular vertex for the first time
+    private int source; // source vertex
+    private int sizeOfG; // number of vertices in the graph
 
     /**
      * Find paths in G from source vertex
@@ -24,7 +26,7 @@ public class DFSPaths implements Paths{
         validateVertex(source);
         this.source = source;
         visited = new boolean[G.V()];
-        visitedFrom = new int[G.V()];
+        edgeTo = new int[G.V()];
         dfs(G, source);
     }
 
@@ -52,23 +54,23 @@ public class DFSPaths implements Paths{
         int currentVertex = v;
         while (currentVertex != this.source){
             path.push(currentVertex);
-            currentVertex = visitedFrom[currentVertex];
+            currentVertex = edgeTo[currentVertex];
         }
         path.push(this.source);
         return path;
     }
 
     /**
-     * Performs a DFS from source, to visit each vertex that has a path with source (undirected graph)
-     * @param G
-     * @param source
+     * Performs a DFS from v, to visit each vertex that has a path with v (undirected graph)
+     * @param G the graph on which DFS is to perform
+     * @param v the vertex from which dfs is performed
      */
-    private void dfs(Graph G, int source){
-        visited[source] = true;
-        for (int adjV : G.getAdjVertices(source)){
+    private void dfs(Graph G, int v){
+        visited[v] = true;
+        for (int adjV : G.getAdjVertices(v)){
             if (!visited[adjV]){
                 dfs(G, adjV);
-                visitedFrom[adjV] = source;
+                edgeTo[adjV] = v;
             }
         }
     }
@@ -87,11 +89,6 @@ public class DFSPaths implements Paths{
         G.addEdge(3, 4);
 
         DFSPaths DFSPathsFrom_0 = new DFSPaths(G, 0);
-        for (int v : DFSPathsFrom_0.pathTo(2)){
-            System.out.print(" => " +v);
-        }
-        System.out.println();
-
-        System.out.println(DFSPathsFrom_0.hasPathTo(2));
+        System.out.println(DFSPathsFrom_0.pathTo(3));
     }
 }
