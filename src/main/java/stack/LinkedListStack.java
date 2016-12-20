@@ -14,7 +14,8 @@ public class LinkedListStack<T> implements Stack<T> {
 
     public void push(T item) {
         Node<T> oldFirst = first;
-        first = new Node<T>(item);
+        first = new Node<T>();
+        first.data = item;
         first.next = oldFirst;
         size++;
     }
@@ -31,11 +32,11 @@ public class LinkedListStack<T> implements Stack<T> {
     }
 
     public boolean isEmpty() {
-        return false;
+        return first == null;
     }
 
     public int size() {
-        return 0;
+        return size;
     }
 
     private class Node<D>{
@@ -46,14 +47,9 @@ public class LinkedListStack<T> implements Stack<T> {
         */
         D data;
         Node<D> next;
-
-        public Node(D data){
-            this.data =  data;
-            next = null;
-        }
     }
 
-    public static void main(String[] args) throws StackUnderFlowException {
+    public static void main(String[] args) throws Exception {
         Stack stk = new LinkedListStack();
         stk.push(1);
         stk.push(2);
