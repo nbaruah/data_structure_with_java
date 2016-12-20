@@ -3,6 +3,7 @@ package graph.undirected;
 import graph.common.Edge;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -10,12 +11,14 @@ import java.util.List;
  */
 public class EdgeWeightedGraph {
     private final int V;
+    private final List<Edge>[] adjList;
+    private LinkedList<Edge> edges;
     private int E;
-    private List<Edge>[] adjList;
 
     public EdgeWeightedGraph(int V){
         this.V = V;
         adjList = new ArrayList[V];
+        edges = new LinkedList<Edge>();
         for (int v = 0; v < V; v++) {
             adjList[v] = new ArrayList<Edge>();
         }
@@ -40,7 +43,7 @@ public class EdgeWeightedGraph {
     }
 
     /**
-     * This method adds an edge with incident vertices v and w
+     * This method adds a weighted {@link Edge} to the graph
      *
      * @param e
      */
@@ -50,24 +53,38 @@ public class EdgeWeightedGraph {
         adjList[v].add(e);
         adjList[w].add(e);
         E++;
+        edges.add(e);
     }
 
     /**
-     * This method returns a list of adjacent vertices to v
+     * This method returns a list of adjacent {@link Edge} to the vertex v
      *
      * @param v@return Iterable
      */
     public Iterable<Edge> getAdjEdges(int v) {
+        validateVertex(v);
         return adjList[v];
     }
 
     /**
      * Returns the degree of vertex v
      *
-     * @param v@return degree of vertex v
+     * @param v
+     * @return degree of vertex v
      */
     public int getDegree(int v) {
+        validateVertex(v);
         return adjList[v].size();
+    }
+
+    public Iterable<Edge> edges(){
+        return edges;
+    }
+
+    private void validateVertex(int v){
+        if (v < 0 || v >= V){
+            throw new ArrayIndexOutOfBoundsException("Vertex: " + v + " is not in the range 0 and " + (V-1));
+        }
     }
 
     public static void main(String[] args){
@@ -81,5 +98,7 @@ public class EdgeWeightedGraph {
         for (int i = 0; i < G.V(); i++) {
             System.out.println(G.getAdjEdges(i));
         }
+
+        System.out.println("Edges: \n" + G.edges());
     }
 }
