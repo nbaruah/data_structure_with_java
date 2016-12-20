@@ -19,13 +19,13 @@ public interface Stack<T> {
     T pop() throws StackUnderFlowException;
 
     /**
-     * Tells is the Stack empty
+     * Tells if the Stack empty
      * @return true if Stack is empty otherwise false
      */
     boolean isEmpty();
 
     /**
-     * Returns the currently present number of items in the Stack
+     * Returns the current number of items in the Stack
      * @return Current number of items
      */
     int size();
