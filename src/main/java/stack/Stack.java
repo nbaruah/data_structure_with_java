@@ -5,7 +5,7 @@ package stack;
  *
  * Created by nbaruah on 12/18/2016.
  */
-public interface Stack<T> {
+public interface Stack<T> extends Iterable<T> {
     /**
      * Inserts an item into the Stack
      * @param item

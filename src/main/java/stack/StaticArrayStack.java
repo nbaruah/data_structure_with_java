@@ -1,5 +1,8 @@
 package stack;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * This class represents fixed capacity Stack. It is implemented using Array
  * Created by nbaruah on 12/18/2016.
@@ -39,19 +42,37 @@ public class StaticArrayStack<T> implements Stack<T> {
         return top;
     }
 
+    public Iterator<T> iterator() {
+        return new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<T> {
+        private int i = top-1;
+
+        public boolean hasNext() {
+            return i >= 0;
+        }
+
+        public T next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            T item = stack[i--];
+            return item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
     public static void main(String[] args) throws Exception{
         StaticArrayStack<String> stack = new StaticArrayStack<String>(3);
-        System.out.println("Is empty: " + stack.isEmpty());
-        System.out.println("Stack size: " + stack.size());
-        //stack.pop();
         stack.push("Nayan");
-        System.out.println("Is empty: " + stack.isEmpty());
-        System.out.println("Stack size: " + stack.size());
         stack.push("Mani");
         stack.push("Baruah");
 
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
+        for (String item : stack){
+            System.out.println(item);
+        }
     }
+
 }

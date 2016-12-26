@@ -1,5 +1,8 @@
 package stack;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Created by nbaruah on 12/20/2016.
  */
@@ -43,25 +46,44 @@ public class ResizingArrayStack<T> implements Stack<T>{
     }
 
     private void resize(int newSize){
-        System.out.println("Resizing Array to: " + newSize + " current size: " + top);
-
         T[] newStack = (T[]) new Object[newSize];
+
         for (int i = 0; i < top; i++) {
             newStack[i] = stack[i];
         }
         stack = newStack;
     }
 
+    public Iterator<T> iterator() {
+        return new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<T> {
+        private int i = top-1;
+
+        public boolean hasNext() {
+            return i >= 0;
+        }
+
+        public T next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            T item = stack[i--];
+            return item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         ResizingArrayStack<Integer> stk = new ResizingArrayStack<Integer>();
         for (int i = 0; i < 4; i++) {
-            System.out.println("Currently i = " + i);
             stk.push(i);
         }
-        System.out.println("Poped: " + stk.pop());
-        System.out.println("Poped: " + stk.pop());
-        System.out.println("Poped: " + stk.pop());
-        System.out.println("Poped: " + stk.pop());
 
+        for (Integer n : stk){
+            System.out.println(n);
+        }
     }
 }
